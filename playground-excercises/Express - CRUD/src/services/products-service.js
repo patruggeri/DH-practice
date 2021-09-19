@@ -5,7 +5,9 @@ const productsFilePath = path.join(__dirname, "../data/productsDataBase.json");
 let products = JSON.parse(fs.readFileSync(productsFilePath, "utf-8"));
 
 const productsService = {
-  products: products,
+  products: function () {
+    return products;
+  },
 
   filterByCategory(category) {
     const filteredProducts = products.filter((prod) => {

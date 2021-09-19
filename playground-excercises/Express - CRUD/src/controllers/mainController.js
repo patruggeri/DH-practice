@@ -1,6 +1,4 @@
-const fs = require("fs");
-const path = require("path");
-
+// ******* Services require ********
 const productsService = require("../services/products-service");
 
 const controller = {
@@ -15,6 +13,9 @@ const controller = {
   },
   search: (req, res) => {
     // Do the magic
+  },
+  admin: (req, res) => {
+    res.send(`Hola Admin: ${req.query.user}`);
   },
 };
 

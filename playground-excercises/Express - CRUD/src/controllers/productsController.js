@@ -1,12 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-
+// ******* Services require ********
 const productsService = require("../services/products-service");
 
 const controller = {
   // ----- Root - Show all products -----
   index: (req, res) => {
-    res.render("products", { products: productsService.products });
+    res.render("products", { products: productsService.products() });
   },
 
   // ----- Detail - Detail from one product -----
@@ -21,7 +19,7 @@ const controller = {
     res.render("product-create-form");
   },
 
-  // ----- Create -  Method to store -----
+  // ----- Create - Method to store -----
   store: (req, res) => {
     // CreateOne (Save included)
     productsService.createOne(req.body, req.file);

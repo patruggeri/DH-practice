@@ -146,8 +146,8 @@
   {
     "id": 17,
     "name": "Zapatillas Nike React Vision",
-    "price": 35000,
-    "discount": 15,
+    "price": 32000,
+    "discount": 10,
     "category": "in-sale",
     "description": "Una zapa re piola",
     "image": "1631475283948.jpeg"

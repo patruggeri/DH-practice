@@ -7,7 +7,7 @@ const path = require("path");
 // ************ Controller Require ************
 const productsController = require("../controllers/productsController");
 
-// ************ Multer usage ************
+// ************ Initializing Multer ************
 const storage = multer.diskStorage({
   destination: path.join(__dirname, "../../public/images/products"),
   filename: (req, file, cb) => {
