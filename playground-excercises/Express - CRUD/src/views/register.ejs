@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+  <!-- Include Head -->
+  <%- include('partials/head', {title: 'Formulario de registro'}) %>
+  <body>
+    <!-- Header -->
+    <%- include('partials/headerNavbar') %>
+    <!-- /Header -->
+
+    <div class="container products-wrapper">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="products-title">Formulario de registro</h2>
+        </div>
+
+        <div>
+          <% if (locals.errors) { errors.forEach ((error) => { %>
+          <li class="col-12" style="color: red; font-size: 12px"><%= error.msg %></li>
+          <% }) }%>
+        </div>
+      </div>
+      <div class="col-12">
+        <form action="/" method="POST" enctype="multipart/form-data">
+          <div class="row product-detail">
+            <div class="col-12 col-md-6">
+              <label for="fullName" class="form-label">Nombre y apellido:</label>
+              <input type="text" id="fullName" name="fullName" placeholder="Ej: Lionel Messi"
+              class="form-input" value="<%= values ? values.fullName : ""%>" />
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="email" class="form-label">Correo electrónico:</label>
+              <input type="email" id="email" name="email" placeholder="Ej: liomessi@psg.com"
+              class="form-input" value="<%= values ? values.email : ""%>" />
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="age" class="form-label">Edad</label>
+              <input type="number" id="age" name="age" placeholder="Ej: 35" value="<%= values ?
+              values.age : ""%>" class="form-input"/>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="userCategory" class="form-label">Categoría de cliente:</label>
+              <select name="userCategory" id="userCategory" class="form-input">
+                <option disabled selected>Elegí</option>
+                <option value="buyer">Comprador</option>
+                <option value="vendor">Vendedor</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Ingrese su contraseña"
+                class="form-input"
+              />
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="confirmPassword" class="form-label">Repita su contraseña</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Repita su contraseña"
+                class="form-input"
+              />
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="profilePic" class="form-label">Imagen de perfil:</label>
+              <input
+                type="file"
+                id="profilePic"
+                name="profilePic"
+                class="form-input"
+                accept="image/jpeg,image/png"
+              />
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="headerColor" class="form-label">Color elegido:</label>
+              <select name="headerColor" id="headerColor" class="form-input">
+                <option disabled selected>Elegí</option>
+                <option value="default">Usar el actual</option>
+                <option value="coral">Coral</option>
+                <option value="darkcyan">Dark cyan</option>
+                <option value="indianred">Indian red</option>
+                <option value="olive">Olive</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="buy-now-button">Registrarse</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <%- include('partials/footer') %>
+    <!-- /footer -->
+  </body>
+</html>
