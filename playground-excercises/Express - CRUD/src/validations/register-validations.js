@@ -9,13 +9,16 @@ const registerValidations = [
     .isEmail()
     .withMessage("La dirección de e-mail ingresada no es válida"),
   body("age").isNumeric().withMessage("Por favor ingrese su edad"),
-  body("password").isStrongPassword().withMessage("La contraseña es muy débil"),
-  /*    .bail()
+  body("password")
+    .isStrongPassword()
+    .withMessage("La contraseña es muy débil")
+    .bail()
     .custom((value, { req }) => {
       if (value !== req.body.confirmPassword) {
         throw new Error("Las contraseñas no coinciden");
       }
-    })           */
+      return true;
+    }),
 ];
 
 module.exports = registerValidations;

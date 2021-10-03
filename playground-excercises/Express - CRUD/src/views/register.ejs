@@ -13,9 +13,9 @@
           <h2 class="products-title">Formulario de registro</h2>
         </div>
 
-        <div>
+        <div class="form-error">
           <% if (locals.errors) { errors.forEach ((error) => { %>
-          <li class="col-12" style="color: red; font-size: 12px"><%= error.msg %></li>
+          <li class="col-12"><%= error.msg %></li>
           <% }) }%>
         </div>
       </div>
@@ -25,17 +25,17 @@
             <div class="col-12 col-md-6">
               <label for="fullName" class="form-label">Nombre y apellido:</label>
               <input type="text" id="fullName" name="fullName" placeholder="Ej: Lionel Messi"
-              class="form-input" value="<%= values ? values.fullName : ""%>" />
+              class="form-input" value="<%= locals.values ? locals.values.fullName : ""%>" />
             </div>
             <div class="col-12 col-md-6">
               <label for="email" class="form-label">Correo electrónico:</label>
               <input type="email" id="email" name="email" placeholder="Ej: liomessi@psg.com"
-              class="form-input" value="<%= values ? values.email : ""%>" />
+              class="form-input" value="<%= locals.values ? locals.values.email : ""%>" />
             </div>
             <div class="col-12 col-md-6">
               <label for="age" class="form-label">Edad</label>
-              <input type="number" id="age" name="age" placeholder="Ej: 35" value="<%= values ?
-              values.age : ""%>" class="form-input"/>
+              <input type="number" id="age" name="age" placeholder="Ej: 35" value="<%= locals.values
+              ? locals.values.age : ""%>" class="form-input"/>
             </div>
             <div class="col-12 col-md-6">
               <label for="userCategory" class="form-label">Categoría de cliente:</label>

@@ -1,9 +1,17 @@
+// ******* Modules require ********
+const fs = require("fs");
+const path = require("path");
+
 // ******* Services require ********
 const productsService = require("../services/products-service");
 const usersService = require("../services/users-service");
 
 // ******* Validation results ********
 const { validationResult } = require("express-validator");
+
+// ******* Users database ********
+const usersFilePath = path.join(__dirname, "../data/usersDataBase.json");
+//let users = JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
 
 const controller = {
   index: (req, res) => {
@@ -22,9 +30,28 @@ const controller = {
 
   processRegister: (req, res) => {
     let errors = validationResult(req);
-
     if (errors.isEmpty()) {
-      res.redirect("index");
+      let user = {
+        name: req.body.fullName,
+        age: req.body.age,
+        email: req.body.email,
+        category: req.body.userCategory,
+        color: req.body.headerColor,
+        password: req.body.password, // Falta encriptar
+        // Falta la foto
+      };
+      let usersDB = fs.readFileSync(usersFilePath, "utf-8");
+      let users;
+      if (usersDB == "") {
+        users = [];
+      } else {
+        users = JSON.parse(usersDB);
+      }
+      users.push(user);
+
+      usersJSON = JSON.stringify(users, null, 2);
+      fs.writeFileSync(path.join(__dirname, "../data/usersDataBase.json"), usersJSON);
+      res.redirect("/");
     } else {
       res.render("register", { errors: errors.array(), values: req.body });
     }
