@@ -1,18 +1,20 @@
 [
   {
-    "name": "Lionel Messi",
+    "fullName": "Patricio Ruggeri",
+    "age": "30",
+    "email": "pato.ruggeri@hotmail.com",
+    "category": "vendor",
+    "color": "coral",
+    "password": "$2a$10$uNo0pZHA1zatVCF9O8aUIOWzNUXCtbhq.KjbgCMcmb.x80TT/EqbO",
+    "avatar": "1633373446452-avatar.jpeg"
+  },
+  {
+    "fullName": "Lionel Messi",
     "age": "34",
     "email": "liomessi@psg.com",
     "category": "buyer",
-    "color": "default",
-    "password": "holaMundo123."
-  },
-  {
-    "name": "Patricio R",
-    "age": "30",
-    "email": "pato.ruggeri@hotmail.com",
-    "category": "buyer",
-    "color": "default",
-    "password": "HolaMundo123."
+    "color": "olive",
+    "password": "$2a$10$yhqqIRPjIMGNAXfsTyxadubDQvZB9TJ0BvnU48IV4GycdaCqyvvW6",
+    "avatar": "1633373911320-avatar.jpeg"
   }
 ]

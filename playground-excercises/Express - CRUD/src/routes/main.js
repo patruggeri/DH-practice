@@ -9,33 +9,29 @@ const mainController = require("../controllers/mainController");
 
 // ************ Initializing Multer ************
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, "../../public/images/products"),
+  destination: path.join(__dirname, "../../public/images/avatar"),
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, Date.now() + "-avatar" + path.extname(file.originalname));
   },
 });
 
 const uploader = multer({ storage });
+
 // ************ Middlewares ************
 const adminAccess = require("../middlewares/adminAccess");
 
 // ************ Validations ************
 const registerValidations = require("../validations/register-validations");
+const loginValidations = require("../validations/login-validations");
 
 // *********** ROUTES ************
-
 router.get("/", mainController.index);
 
 router.get("/register", mainController.register);
-router.post(
-  "/",
-  uploader.single("profilePic"),
-  registerValidations,
-  mainController.processRegister
-);
+router.post("/", uploader.single("avatar"), registerValidations, mainController.processRegister);
 
 router.get("/login", mainController.login);
-router.post("/login", mainController.processLogin);
+router.post("/login", loginValidations, mainController.processLogin);
 
 router.get("/search", mainController.search);
 

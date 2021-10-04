@@ -1,6 +1,7 @@
 // ******* Modules require ********
 const fs = require("fs");
 const path = require("path");
+const bcrypt = require("bcryptjs");
 
 // ******* Services require ********
 const productsService = require("../services/products-service");
@@ -31,16 +32,16 @@ const controller = {
   processRegister: (req, res) => {
     let errors = validationResult(req);
     if (errors.isEmpty()) {
-      let user = {
-        name: req.body.fullName,
+      const user = {
+        fullName: req.body.fullName,
         age: req.body.age,
         email: req.body.email,
         category: req.body.userCategory,
         color: req.body.headerColor,
-        password: req.body.password, // Falta encriptar
-        // Falta la foto
+        password: bcrypt.hashSync(req.body.password, 10),
+        avatar: req.file.filename,
       };
-      let usersDB = fs.readFileSync(usersFilePath, "utf-8");
+      const usersDB = fs.readFileSync(usersFilePath, "utf-8");
       let users;
       if (usersDB == "") {
         users = [];
@@ -53,7 +54,7 @@ const controller = {
       fs.writeFileSync(path.join(__dirname, "../data/usersDataBase.json"), usersJSON);
       res.redirect("/");
     } else {
-      res.render("register", { errors: errors.array(), values: req.body });
+      res.render("register", { errors: errors.mapped(), oldValues: req.body });
     }
   },
 
@@ -62,7 +63,28 @@ const controller = {
   },
 
   processLogin: (req, res) => {
-    res.redirect("index");
+    let errors = validationResult(req);
+    if (errors.isEmpty()) {
+      const usersDB = fs.readFileSync(usersFilePath, "utf-8");
+      let users;
+      if (usersDB == "") {
+        users = [];
+      } else {
+        users = JSON.parse(usersDB);
+      }
+      for (let i = 0; i < users.length; i++) {
+        if (
+          req.body.email == users[i].email &&
+          bcrypt.compareSync(req.body.password, users[i].password)
+        ) {
+          res.redirect("/");
+          break;
+        }
+      }
+      res.redirect("login");
+    } else {
+      res.render("login", { errors: errors.mapped(), oldValues: req.body });
+    }
   },
 
   search: (req, res) => {
