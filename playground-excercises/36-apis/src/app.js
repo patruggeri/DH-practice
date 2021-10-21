@@ -26,6 +26,9 @@ app.use(
   })
 );
 
+// Middleware que se ocupa de procesar los datos recibidos en formato RAW/JSON para las APIs:
+app.use(express.json());
+
 // view engine setup
 app.set("views", path.resolve(__dirname, "./views"));
 app.set("view engine", "ejs");

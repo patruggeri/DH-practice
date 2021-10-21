@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const apiGenresRouter = require("./apiGenresRoutes");
+const apiMoviesRouter = require("./apiMoviesRoutes");
 
 router.use(apiGenresRouter);
+router.use(apiMoviesRouter);
 
 module.exports = router;
 
