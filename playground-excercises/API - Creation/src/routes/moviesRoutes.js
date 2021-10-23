@@ -3,6 +3,7 @@ const router = express.Router();
 const moviesController = require("../controllers/moviesController");
 const assertAdmin = require("../middlewares/assert-admin");
 
+router.get("/movies/search", moviesController.search);
 router.get("/movies", moviesController.list);
 router.get("/movies/new", moviesController.new);
 router.get("/movies/recommended", moviesController.recommended);

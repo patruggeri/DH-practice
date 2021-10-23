@@ -1,9 +1,39 @@
 const { Movie, Genre } = require("../database/models");
+const { Op } = require("sequelize");
+
+const fetch = require("node-fetch");
+
 const moviesService = require("../services/movies-service");
 
 // ASYNC / AWAIT
-
 module.exports = {
+  search: async (req, res) => {
+    const title = req.query.title;
+    const movies = await Movie.findAll({
+      where: {
+        title: { [Op.like]: `%${title}%` },
+      },
+    });
+    if (movies.length > 0) {
+      res.render("moviesList", { movies });
+      return;
+    } else {
+      // REQUEST A OMDB
+      /* Llave única para comunicarme con el server de la API */
+      const apiKey = "d4e35e92";
+      /* Url de la API incluyendo la llave */
+      const url = `http://www.omdbapi.com/?apikey=${apiKey}&t=${req.query.title}`;
+      /* Proceso de conexión con node-fetch */
+      const httpResult = await fetch(url);
+      const movie = await httpResult.json();
+
+      if (movie.Error) {
+        res.send("Película inexistente, prueba con otra cosa");
+      } else {
+        res.render("moviesDetailOmdb", { movie });
+      }
+    }
+  },
   list: (req, res) => {
     Movie.findAll({
       include: [{ association: "genre" }, { association: "actors" }],
