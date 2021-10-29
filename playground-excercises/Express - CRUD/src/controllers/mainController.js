@@ -63,7 +63,7 @@ const controller = {
   },
 
   processLogin: (req, res) => {
-    let errors = validationResult(req);
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
       const usersDB = fs.readFileSync(usersFilePath, "utf-8");
       let users;
@@ -82,6 +82,7 @@ const controller = {
         }
       }
       res.redirect("login");
+      return;
     } else {
       res.render("login", { errors: errors.mapped(), oldValues: req.body });
     }
